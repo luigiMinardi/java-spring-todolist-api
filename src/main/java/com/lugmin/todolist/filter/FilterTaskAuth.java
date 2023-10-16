@@ -44,6 +44,7 @@ public class FilterTaskAuth extends OncePerRequestFilter {
             } else {
                 var passwdChecker = BCrypt.verifyer().verify(passwd.toCharArray(), user.getPassword());
                 if (passwdChecker.verified) {
+                    request.setAttribute("idUser", user.getId());
                     filterChain.doFilter(request, response);
                 } else {
                     response.sendError(401, "Wrong login credentials.");
